@@ -66,6 +66,11 @@ export function AddProjectModal({ isOpen, isSubmitting, onClose, onSubmit }: Add
       });
       onClose();
     } catch (submissionError) {
+      if (submissionError instanceof Error) {
+        setError(submissionError.message);
+        return;
+      }
+
       setError("Could not add project right now. Check token/env and try again.");
     }
   }

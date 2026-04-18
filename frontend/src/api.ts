@@ -23,8 +23,14 @@ export async function submitContact(payload: ContactPayload): Promise<string> {
 
 export async function createProject(payload: CreateProjectPayload): Promise<Project> {
   const token = import.meta.env.VITE_PROJECT_ADMIN_TOKEN;
+
+  if (import.meta.env.DEV) {
+    console.log("[createProject] VITE_PROJECT_ADMIN_TOKEN present:", Boolean(token));
+    console.log("[createProject] VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api");
+  }
+
   const response = await api.post<{ data: Project }>("/projects", payload, {
-    headers: token ? { "x-admin-token": token } : undefined,
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   });
 
   return response.data.data;

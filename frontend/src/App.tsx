@@ -78,6 +78,12 @@ function App() {
       const created = await createProject(payload);
       setProjects((prev) => [created, ...prev]);
       setActiveCategory("All");
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error("Could not add project right now. Check token/env and try again.");
     } finally {
       setIsSubmittingProject(false);
     }

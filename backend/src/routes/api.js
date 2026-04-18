@@ -54,7 +54,11 @@ function isAuthorizedForProjectCreate(req) {
     return true;
   }
 
-  const headerToken = req.headers["x-admin-token"];
+  const authorizationHeader = req.headers.authorization || "";
+  const bearerToken = authorizationHeader.startsWith("Bearer ")
+    ? authorizationHeader.slice(7).trim()
+    : "";
+  const headerToken = req.headers["x-admin-token"] || bearerToken;
   return headerToken === requiredToken;
 }
 
@@ -78,7 +82,10 @@ router.get("/projects", async (_, res) => {
 
 router.post("/projects", async (req, res) => {
   if (!isAuthorizedForProjectCreate(req)) {
-    return res.status(401).json({ message: "Unauthorized request." });
+    return res.status(401).json({
+      message:
+        "Unauthorized request. Check PROJECT_ADMIN_TOKEN in backend .env and VITE_PROJECT_ADMIN_TOKEN in frontend .env.local.",
+    });
   }
 
   const { title, description, techStack, category, imageUrl, githubUrl, liveUrl, featured } = req.body;

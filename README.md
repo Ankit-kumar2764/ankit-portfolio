@@ -70,6 +70,28 @@ ankit-portfolio/
 - `POST /api/contact`
 - `POST /api/projects`
 
+## Add Project Authentication
+
+The Add Project modal sends a Bearer token in the `Authorization` header.
+
+Set these values to the same secret in both places:
+
+```env
+# backend/.env
+PROJECT_ADMIN_TOKEN=change-this-admin-token
+
+# frontend/.env.local
+VITE_PROJECT_ADMIN_TOKEN=change-this-admin-token
+```
+
+Common mistakes:
+
+- `.env` file not created in the correct folder
+- wrong variable name or missing `VITE_` prefix in Vite
+- server or dev client not restarted after env changes
+- backend token and frontend token do not match
+- browser cached old env values from a previous dev server run
+
 ## Setup Instructions
 
 ### 1) Backend setup
