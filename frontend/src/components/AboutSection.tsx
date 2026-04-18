@@ -16,7 +16,18 @@ export function AboutSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div>
+        <div className="space-y-4">
+          <div className="overflow-hidden rounded-2xl border border-[var(--card-border)]">
+            <img
+              src="/assets/about.jpg"
+              alt="About workspace"
+              className="h-72 w-full object-cover md:h-[430px]"
+              loading="lazy"
+              onError={(event) => {
+                event.currentTarget.src = "/assets/about.jpg";
+              }}
+            />
+          </div>
           <h3 className="text-2xl font-semibold text-[var(--text)]">Ankit Kumar</h3>
           <p className="mt-3 text-[var(--text-soft)]">
             Full Stack Developer specializing in MERN applications with a strong emphasis on
