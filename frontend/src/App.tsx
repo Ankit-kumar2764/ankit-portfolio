@@ -12,6 +12,7 @@ import { Navbar } from "./components/Navbar";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { SkillsSection } from "./components/SkillsSection";
 import type { CreateProjectPayload, LeetCodeStats, Project, ProjectCategory } from "./types";
+import { loadLocalProjects, mergeProjects } from "./utils/projectStorage";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -42,10 +43,11 @@ function App() {
           fetchLeetCodeStats(),
         ]);
 
-        setProjects(projectData);
+        setProjects(mergeProjects(projectData, loadLocalProjects()));
         setStats(leetCodeData);
       } catch (error) {
         console.warn("Could not fetch portfolio data", error);
+        setProjects(loadLocalProjects());
       } finally {
         window.setTimeout(() => setIsLoading(false), 900);
       }
