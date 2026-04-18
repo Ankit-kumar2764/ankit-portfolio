@@ -1,4 +1,4 @@
-export type ProjectCategory = "All" | "Full Stack" | "Frontend";
+export type ProjectCategory = "All" | "Full Stack" | "Frontend" | "Backend";
 
 export interface Project {
   _id?: string;
@@ -28,4 +28,15 @@ export interface ContactPayload {
   email: string;
   subject: string;
   message: string;
+}
+
+export interface CreateProjectPayload {
+  title: string;
+  description: string;
+  techStack: string[];
+  category: Exclude<ProjectCategory, "All">;
+  imageUrl: string;
+  githubUrl: string;
+  liveUrl: string;
+  featured: boolean;
 }

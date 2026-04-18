@@ -1,0 +1,6 @@
+<svg width="720" height="900" viewBox="0 0 720 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="900" rx="40" fill="#102445"/>
+  <circle cx="360" cy="315" r="140" fill="#2F6FED"/>
+  <path d="M150 760C150 643.431 244.431 549 361 549H359C475.569 549 570 643.431 570 760V820H150V760Z" fill="#73D2DE"/>
+  <text x="50%" y="875" dominant-baseline="middle" text-anchor="middle" fill="#EAF2FF" font-family="Arial, sans-serif" font-size="34">Add frontend/public/profile.jpg</text>
+</svg>

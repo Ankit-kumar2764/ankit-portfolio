@@ -18,7 +18,7 @@ export function Navbar({ darkMode, onToggleMode }: NavbarProps) {
     <header className="sticky top-0 z-40 border-b border-[var(--card-border)] bg-[color:var(--bg)/0.72] backdrop-blur-xl">
       <div className="mx-auto flex w-[min(1120px,94%)] items-center justify-between py-4">
         <a href="#home" className="font-display text-2xl text-[var(--text)]">
-          Ankit<span className="text-[var(--accent)]">.dev</span>
+          ankitkumar<span className="text-[var(--accent)]">.me</span>
         </a>
 
         <nav className="hidden items-center gap-6 md:flex">

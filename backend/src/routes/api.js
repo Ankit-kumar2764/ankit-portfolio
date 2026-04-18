@@ -16,6 +16,48 @@ const fallbackStats = {
   topics: ["Arrays", "Strings", "DP", "Graphs", "Trees"],
 };
 
+function slugify(value) {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+function validateProjectPayload(payload) {
+  const requiredFields = [
+    "title",
+    "description",
+    "techStack",
+    "category",
+    "imageUrl",
+    "githubUrl",
+    "liveUrl",
+  ];
+
+  const missing = requiredFields.filter((field) => !payload[field]);
+  if (missing.length > 0) {
+    return `Missing required fields: ${missing.join(", ")}`;
+  }
+
+  if (!Array.isArray(payload.techStack) || payload.techStack.length === 0) {
+    return "techStack must be a non-empty array.";
+  }
+
+  return null;
+}
+
+function isAuthorizedForProjectCreate(req) {
+  const requiredToken = process.env.PROJECT_ADMIN_TOKEN;
+  if (!requiredToken) {
+    return true;
+  }
+
+  const headerToken = req.headers["x-admin-token"];
+  return headerToken === requiredToken;
+}
+
 router.get("/health", (_, res) => {
   res.json({ ok: true, service: "portfolio-api" });
 });
@@ -31,6 +73,70 @@ router.get("/projects", async (_, res) => {
     return res.json({ source: "fallback", data: seedProjects });
   } catch (error) {
     return res.json({ source: "fallback", data: seedProjects });
+  }
+});
+
+router.post("/projects", async (req, res) => {
+  if (!isAuthorizedForProjectCreate(req)) {
+    return res.status(401).json({ message: "Unauthorized request." });
+  }
+
+  const { title, description, techStack, category, imageUrl, githubUrl, liveUrl, featured } = req.body;
+  const validationError = validateProjectPayload({
+    title,
+    description,
+    techStack,
+    category,
+    imageUrl,
+    githubUrl,
+    liveUrl,
+  });
+
+  if (validationError) {
+    return res.status(400).json({ message: validationError });
+  }
+
+  const slug = slugify(title);
+
+  try {
+    const existing = await Project.findOne({ slug });
+    if (existing) {
+      return res.status(409).json({ message: "Project with this title already exists." });
+    }
+
+    const createdProject = await Project.create({
+      title,
+      slug,
+      description,
+      techStack: techStack.map((item) => String(item).trim()).filter(Boolean),
+      category,
+      imageUrl,
+      githubUrl,
+      liveUrl,
+      featured: Boolean(featured),
+    });
+
+    return res.status(201).json({ message: "Project added successfully.", data: createdProject });
+  } catch (error) {
+    // Fallback mode when MongoDB is unavailable in local development.
+    const fallbackProject = {
+      title,
+      slug,
+      description,
+      techStack: techStack.map((item) => String(item).trim()).filter(Boolean),
+      category,
+      imageUrl,
+      githubUrl,
+      liveUrl,
+      featured: Boolean(featured),
+      _id: `fallback-${Date.now()}`,
+    };
+
+    seedProjects.unshift(fallbackProject);
+    return res.status(201).json({
+      message: "Project added in fallback mode. Connect MongoDB to persist it.",
+      data: fallbackProject,
+    });
   }
 });
 

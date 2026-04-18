@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { useTypingEffect } from "../hooks/useTypingEffect";
 
+const profileImagePath = "/profile.jpg";
+const fallbackProfileImagePath = "/profile-placeholder.svg";
+
 export function HeroSection() {
   const typedText = useTypingEffect([
     "Full Stack MERN Developer",
@@ -20,7 +23,7 @@ export function HeroSection() {
           transition={{ duration: 0.7 }}
         >
           <p className="mb-5 inline-flex rounded-full border border-[var(--card-border)] bg-[var(--card-bg)] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-            Open To Opportunities
+            ankitkumar.me · Open To Opportunities
           </p>
           <h1 className="font-display text-4xl leading-tight text-[var(--text)] md:text-6xl">
             Hi, I am <span className="text-[var(--accent)]">Ankit Kumar</span>
@@ -61,6 +64,17 @@ export function HeroSection() {
           </div>
 
           <div className="space-y-4">
+            <div className="overflow-hidden rounded-2xl border border-[var(--card-border)]">
+              <img
+                src={profileImagePath}
+                alt="Ankit Kumar"
+                className="h-72 w-full object-cover"
+                loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.src = fallbackProfileImagePath;
+                }}
+              />
+            </div>
             <div className="rounded-2xl border border-[var(--card-border)] bg-[color:var(--bg)/0.6] p-4">
               <p className="text-sm text-[var(--text-soft)]">Primary Role</p>
               <p className="mt-2 text-xl font-semibold text-[var(--text)]">Full Stack Developer (MERN)</p>

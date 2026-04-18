@@ -59,6 +59,8 @@ ankit-portfolio/
 - Loading animation
 - Resume download button
 - Fully responsive layout
+- Profile photo support in Hero (`frontend/public/profile.jpg`)
+- Add Project modal with backend API integration
 
 ## Backend APIs
 
@@ -66,6 +68,7 @@ ankit-portfolio/
 - `GET /api/projects`
 - `GET /api/leetcode-stats`
 - `POST /api/contact`
+- `POST /api/projects`
 
 ## Setup Instructions
 
@@ -96,6 +99,12 @@ Start MongoDB locally or use cloud URI, then set `MONGODB_URI` in backend `.env`
 
 If MongoDB is unavailable, projects fall back to seed data and contact requests return fallback success mode.
 
+Set `PROJECT_ADMIN_TOKEN` in backend `.env` to protect the Add Project API:
+
+```env
+PROJECT_ADMIN_TOKEN=your-secure-token
+```
+
 ### 4) Frontend setup
 
 ```bash
@@ -107,8 +116,15 @@ npm run dev
 
 Frontend runs on `http://localhost:5173`.
 
+Set frontend token to match backend when using Add Project modal:
+
+```env
+VITE_PROJECT_ADMIN_TOKEN=your-secure-token
+```
+
 ## Notes
 
 - Replace `frontend/public/Ankit-Kumar-Resume.txt` with your real resume PDF if needed.
+- Add your photo at `frontend/public/profile.jpg` to show it in Hero. If not present, a clean placeholder is shown.
 - Update social/contact links in `frontend/src/components/ContactSection.tsx`.
 - Update project links in `backend/src/data/seedProjects.js`.

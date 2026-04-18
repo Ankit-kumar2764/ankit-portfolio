@@ -7,18 +7,30 @@ interface ProjectsSectionProps {
   projects: Project[];
   activeCategory: ProjectCategory;
   onCategoryChange: (category: ProjectCategory) => void;
+  onOpenAddProject: () => void;
 }
 
-const categories: ProjectCategory[] = ["All", "Full Stack", "Frontend"];
+const categories: ProjectCategory[] = ["All", "Full Stack", "Frontend", "Backend"];
 
-export function ProjectsSection({ projects, activeCategory, onCategoryChange }: ProjectsSectionProps) {
+export function ProjectsSection({ projects, activeCategory, onCategoryChange, onOpenAddProject }: ProjectsSectionProps) {
   return (
     <section id="projects" className="section-wrap">
-      <SectionHeading
-        eyebrow="Projects"
-        title="Featured work with impact and polish"
-        description="Interactive portfolio cards powered by backend APIs and categorized filtering."
-      />
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <SectionHeading
+            eyebrow="Projects"
+            title="Featured work with impact and polish"
+            description="Interactive portfolio cards powered by backend APIs and categorized filtering."
+          />
+        </div>
+        <button
+          type="button"
+          onClick={onOpenAddProject}
+          className="mb-10 rounded-full border border-[var(--card-border)] px-5 py-2 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)]"
+        >
+          + Add Project
+        </button>
+      </div>
 
       <div className="mb-8 flex flex-wrap justify-center gap-2">
         {categories.map((category) => (

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { fetchLeetCodeStats, fetchProjects } from "./api";
+import { createProject, fetchLeetCodeStats, fetchProjects } from "./api";
+import { AddProjectModal } from "./components/AddProjectModal";
 import { AboutSection } from "./components/AboutSection";
 import { ContactSection } from "./components/ContactSection";
 import { DsaSection } from "./components/DsaSection";
@@ -10,7 +11,7 @@ import { Loader } from "./components/Loader";
 import { Navbar } from "./components/Navbar";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { SkillsSection } from "./components/SkillsSection";
-import type { LeetCodeStats, Project, ProjectCategory } from "./types";
+import type { CreateProjectPayload, LeetCodeStats, Project, ProjectCategory } from "./types";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -18,8 +19,12 @@ function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [stats, setStats] = useState<LeetCodeStats | null>(null);
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
+  const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
+  const [isSubmittingProject, setIsSubmittingProject] = useState(false);
 
   useEffect(() => {
+    document.title = "ankitkumar.me | Full Stack Portfolio";
+
     const storedTheme = window.localStorage.getItem("theme");
     if (storedTheme === "light") {
       setDarkMode(false);
@@ -66,11 +71,30 @@ function App() {
     return projects.filter((project) => project.category === activeCategory);
   }, [activeCategory, projects]);
 
+  async function handleCreateProject(payload: CreateProjectPayload) {
+    setIsSubmittingProject(true);
+
+    try {
+      const created = await createProject(payload);
+      setProjects((prev) => [created, ...prev]);
+      setActiveCategory("All");
+    } finally {
+      setIsSubmittingProject(false);
+    }
+  }
+
   return (
     <>
       <AnimatePresence>{isLoading ? <Loader /> : null}</AnimatePresence>
 
       <div className="app-shell">
+        <AddProjectModal
+          isOpen={isAddProjectOpen}
+          isSubmitting={isSubmittingProject}
+          onClose={() => setIsAddProjectOpen(false)}
+          onSubmit={handleCreateProject}
+        />
+
         <Navbar darkMode={darkMode} onToggleMode={handleThemeToggle} />
 
         <main>
@@ -90,6 +114,7 @@ function App() {
             projects={filteredProjects}
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
+            onOpenAddProject={() => setIsAddProjectOpen(true)}
           />
 
           <DsaSection stats={stats} />
