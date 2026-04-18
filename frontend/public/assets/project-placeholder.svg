@@ -1,7 +1,0 @@
-<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="675" rx="24" fill="#0B1937"/>
-  <rect x="170" y="120" width="860" height="435" rx="18" stroke="#71B4FF" stroke-opacity="0.4" stroke-width="2"/>
-  <circle cx="420" cy="280" r="62" fill="#2F6FED"/>
-  <path d="M310 465C310 402.592 360.592 352 423 352H507C569.408 352 620 402.592 620 465V495H310V465Z" fill="#73D2DE"/>
-  <text x="50%" y="565" dominant-baseline="middle" text-anchor="middle" fill="#D6E6FF" font-family="Arial, sans-serif" font-size="34">Project Image Not Found</text>
-</svg>
