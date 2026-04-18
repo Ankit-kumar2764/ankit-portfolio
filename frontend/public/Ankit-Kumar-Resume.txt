@@ -1,0 +1,7 @@
+Ankit Kumar - Resume Snapshot
+
+Role: Full Stack Developer (MERN)
+Skills: React.js, Node.js, Express.js, MongoDB, TypeScript, Tailwind CSS
+Interests: Web Development, AI/ML, Cybersecurity, Data Structures & Algorithms
+
+Replace this text file with your official PDF resume and keep the same filename in public folder if desired.
