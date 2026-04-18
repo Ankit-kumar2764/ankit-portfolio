@@ -20,9 +20,9 @@ const seedProjects = [
     techStack: ["React.js", "Tailwind CSS", "Framer Motion"],
     category: "Frontend",
     imageUrl:
-      "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=1200&q=80",
+      "popx.png",
     githubUrl: "https://github.com/Ankit-kumar2764/PopX",
-    liveUrl: "https://popx-ui.vercel.app",
+    liveUrl: "https://pop-x-pied-three.vercel.app/",
     featured: true,
   },
   {

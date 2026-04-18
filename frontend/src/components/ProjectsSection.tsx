@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import type { Project, ProjectCategory } from "../types";
 import { SectionHeading } from "./SectionHeading";
+import { getAlternateImageCandidate, normalizeProjectImageInput } from "../utils/projectImage";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -11,6 +12,7 @@ interface ProjectsSectionProps {
 }
 
 const categories: ProjectCategory[] = ["All", "Full Stack", "Frontend", "Backend"];
+const projectImageFallback = "/assets/project-placeholder.svg";
 
 export function ProjectsSection({ projects, activeCategory, onCategoryChange, onOpenAddProject }: ProjectsSectionProps) {
   return (
@@ -59,7 +61,24 @@ export function ProjectsSection({ projects, activeCategory, onCategoryChange, on
             viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: index * 0.06 }}
           >
-            <img src={project.imageUrl} alt={project.title} className="h-48 w-full object-cover" loading="lazy" />
+            <img
+              src={normalizeProjectImageInput(project.imageUrl)}
+              alt={project.title}
+              className="h-48 w-full object-cover"
+              loading="lazy"
+              onError={(event) => {
+                const currentSrc = event.currentTarget.getAttribute("src") || "";
+                const alternateCandidate = getAlternateImageCandidate(currentSrc);
+
+                if (alternateCandidate && event.currentTarget.dataset.altTried !== "1") {
+                  event.currentTarget.dataset.altTried = "1";
+                  event.currentTarget.src = alternateCandidate;
+                  return;
+                }
+
+                event.currentTarget.src = projectImageFallback;
+              }}
+            />
             <div className="p-5">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-[var(--text)]">{project.title}</h3>

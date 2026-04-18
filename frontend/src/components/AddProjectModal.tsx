@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import type { CreateProjectPayload } from "../types";
 import type { FormEvent } from "react";
+import { normalizeProjectImageInput } from "../utils/projectImage";
 
 interface AddProjectModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ export function AddProjectModal({ isOpen, isSubmitting, onClose, onSubmit }: Add
         .map((item) => item.trim())
         .filter(Boolean),
       category: form.category,
-      imageUrl: form.imageUrl.trim(),
+      imageUrl: normalizeProjectImageInput(form.imageUrl),
       githubUrl: form.githubUrl.trim(),
       liveUrl: form.liveUrl.trim(),
       featured: form.featured,
@@ -132,7 +133,7 @@ export function AddProjectModal({ isOpen, isSubmitting, onClose, onSubmit }: Add
 
         <input
           className="input-field"
-          placeholder="Image URL"
+          placeholder="Image URL (example: /assets/tasknova.jpg or https://...)"
           value={form.imageUrl}
           onChange={(event) => setForm((prev) => ({ ...prev, imageUrl: event.target.value }))}
           required
