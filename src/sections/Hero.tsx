@@ -4,6 +4,7 @@ import { ArrowRight, FileText, Mail, MapPin, Award, Code2 } from 'lucide-react';
 import { SITE_CONFIG } from '../constants/config';
 import { GithubIcon, LinkedinIcon, LeetCodeIcon, CodeChefIcon } from '../components/common/SocialIcons';
 import confetti from 'canvas-confetti';
+import ankitPhoto from '../assets/ankit_photo.jpg';
 
 interface HeroProps {
   onOpenResumeModal: () => void;
@@ -208,9 +209,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
             {/* Photo Card Frame matching amberhasan.me */}
             <div className="relative w-64 h-84 sm:w-72 sm:h-96 lg:w-80 lg:h-[430px] rounded-3xl overflow-hidden border-4 border-white/90 dark:border-[#33353F] shadow-[0_0_40px_rgba(168,85,247,0.3)] group bg-slate-900">
               <img
-                src={SITE_CONFIG.photo}
+                src={ankitPhoto}
                 alt="Ankit Kumar"
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.includes('/ankit_photo.jpg')) {
+                    target.src = '/ankit_photo.jpg';
+                  }
+                }}
               />
 
               {/* Subtle inner gradient shadow at bottom */}

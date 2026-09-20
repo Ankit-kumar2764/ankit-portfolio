@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, CheckCircle2, Trophy } from 'lucide-react';
 import { EDUCATION_DATA, CERTIFICATIONS_DATA, ACHIEVEMENTS_DATA } from '../data/portfolioData';
+import ankitPhoto from '../assets/ankit_photo.jpg';
 
 type TabType = 'skills' | 'education' | 'certifications';
 
@@ -17,7 +18,18 @@ export const About: React.FC = () => {
             <div className="w-full rounded-3xl p-6 bg-white dark:bg-[#181818] border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none" />
 
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3.5 mb-6">
+                <img
+                  src={ankitPhoto}
+                  alt="Ankit Kumar"
+                  className="w-12 h-12 rounded-full object-cover object-top border-2 border-purple-500/80 shadow-md ring-2 ring-purple-500/20"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.includes('/ankit_photo.jpg')) {
+                      target.src = '/ankit_photo.jpg';
+                    }
+                  }}
+                />
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                     Ankit Kumar
