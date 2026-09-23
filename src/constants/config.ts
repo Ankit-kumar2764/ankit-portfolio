@@ -40,3 +40,17 @@ export const SITE_CONFIG = {
     { name: "Contact", href: "#contact" },
   ],
 };
+
+export const CHATBOT_CONFIG = {
+  webhookUrl: "https://jaorfoleujrdsj.app.n8n.cloud/webhook/portfolio-chat",
+  botName: "Ankit's AI Assistant",
+  welcomeMessage: "Hi there! 👋 I am **Ankit's Portfolio AI Assistant**.\n\nI can answer questions about Ankit's:\n• 🚀 **Projects** (SkyOps Control Center, Care-Scope, Wanderlust)\n• 💻 **Skills & Tech Stack** (C++, React, Node.js, Python, Tailwind)\n• 🏆 **Problem Solving** (250+ LeetCode problems & CodeChef)\n• 🎓 **Education & CGPA** (B.Tech CSE at ABES EC)\n• 📄 **Resume** & 📩 **Contact Information**\n\nHow can I help you today?",
+  suggestedQuestions: [
+    "Tell me about Ankit",
+    "What are his key projects?",
+    "What are his technical skills?",
+    "How many LeetCode questions has he solved?",
+    "Where can I download his resume?",
+    "How can I get in touch with Ankit?",
+  ],
+};

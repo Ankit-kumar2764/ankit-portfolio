@@ -12,6 +12,7 @@ import { CurrentlyExploring } from './sections/CurrentlyExploring';
 import { ResumeCTA } from './sections/ResumeCTA';
 import { Contact } from './sections/Contact';
 import { ResumeModal } from './components/common/ResumeModal';
+import { Chatbot } from './components/common/Chatbot';
 
 export const App: React.FC = () => {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
@@ -43,6 +44,9 @@ export const App: React.FC = () => {
         isOpen={isResumeModalOpen}
         onClose={() => setIsResumeModalOpen(false)}
       />
+
+      {/* Ankit's Portfolio AI Assistant (n8n Webhook Chatbot) */}
+      <Chatbot />
     </div>
   );
 };
